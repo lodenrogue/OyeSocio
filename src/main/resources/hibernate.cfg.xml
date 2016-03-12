@@ -25,9 +25,8 @@
 
 		<property name="hibernate.id.new_generator_mappings">false</property>
 
-		<mapping class="com.tf.tickfinder.model.Post" />
-		<mapping class="com.tf.tickfinder.model.Contact" />
-		<mapping class="com.tf.tickfinder.model.Tag" />
+		<mapping class="com.lodenrogue.oyesocio.model.User" />
+		<mapping class="com.lodenrogue.oyesocio.model.Friendship" />
 
 	</session-factory>
 </hibernate-configuration>
