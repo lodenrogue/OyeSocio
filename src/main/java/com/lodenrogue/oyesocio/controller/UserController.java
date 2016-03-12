@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lodenrogue.oyesocio.model.Friendship;
+import com.lodenrogue.oyesocio.model.Post;
 import com.lodenrogue.oyesocio.model.User;
 import com.lodenrogue.oyesocio.service.FriendshipFacade;
+import com.lodenrogue.oyesocio.service.PostFacade;
 import com.lodenrogue.oyesocio.service.UserFacade;
 
 @RestController
@@ -23,21 +25,28 @@ public class UserController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(path = "/api/users/{id}", method = RequestMethod.GET)
-	public User getUser(@PathVariable long id) {
-		User user = new UserFacade().find(id);
-		user.setFriends(getFriendIds(id));
-		return user;
-	}
-
-	private List<Long> getFriendIds(long id) {
-		List<Friendship> friends = new FriendshipFacade().findAll(id);
-		List<Long> friendIds = new ArrayList<Long>();
-
-		for (Friendship f : friends) {
-			friendIds.add(f.getFriendId());
+	@RequestMapping(path = "/api/users/{emailOrId:.*}", method = RequestMethod.GET)
+	public User getUser(@PathVariable String emailOrId) {
+		User user = null;
+		try {
+			long id = Long.valueOf(emailOrId);
+			user = new UserFacade().find(id);
+			if (user != null) {
+				user.setFriends(getFriendIds(id));
+				user.setPosts(getPosts(id));
+				return user;
+			}
 		}
-		return friendIds;
+		catch (NumberFormatException e) {
+			user = new UserFacade().findByEmail(emailOrId);
+			if (user != null) {
+				user.setFriends(getFriendIds(user.getId()));
+				user.setPosts(getPosts(user.getId()));
+				return user;
+			}
+		}
+
+		return new User();
 	}
 
 	/**
@@ -71,6 +80,26 @@ public class UserController {
 		else {
 			return new User();
 		}
+	}
+
+	private List<Long> getFriendIds(long userId) {
+		List<Friendship> friends = new FriendshipFacade().findAllByUser(userId);
+		List<Long> friendIds = new ArrayList<Long>();
+
+		for (Friendship f : friends) {
+			friendIds.add(f.getFriendId());
+		}
+		return friendIds;
+	}
+
+	private List<Long> getPosts(long userId) {
+		List<Post> posts = new PostFacade().findAllByUser(userId);
+		List<Long> postIds = new ArrayList<Long>();
+
+		for (Post p : posts) {
+			postIds.add(p.getId());
+		}
+		return postIds;
 	}
 
 }

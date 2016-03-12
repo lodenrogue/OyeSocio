@@ -14,7 +14,7 @@ public class FriendshipFacade extends AbstractFacade<Friendship> {
 		return findUnique("FROM Friendship WHERE userId=" + userId + " AND friendId=" + friendId);
 	}
 
-	public List<Friendship> findAll(long userId) {
+	public List<Friendship> findAllByUser(long userId) {
 		return findAllFromQuery("FROM Friendship WHERE userId=" + userId);
 	}
 

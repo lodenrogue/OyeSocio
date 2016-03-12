@@ -20,6 +20,7 @@ public class Friendship {
 	private long friendId;
 
 	public Friendship() {
+		
 	}
 
 	public long getId() {

@@ -38,9 +38,14 @@ public class FriendshipController {
 		}
 	}
 
-	@RequestMapping(path = "/api/friends/{id}", method = RequestMethod.GET)
-	public List<Friendship> getFriends(@PathVariable long id) {
-		return new FriendshipFacade().findAll(id);
+	@RequestMapping(path = "/api/friends/user/{userId}", method = RequestMethod.GET)
+	public List<Friendship> getFriends(@PathVariable long userId) {
+		return new FriendshipFacade().findAllByUser(userId);
+	}
+
+	@RequestMapping(path = "api/friends/{id}", method = RequestMethod.GET)
+	public Friendship getFriendship(@PathVariable long id) {
+		return new FriendshipFacade().find(id);
 	}
 
 }
