@@ -29,6 +29,7 @@
 		<mapping class="com.lodenrogue.oyesocio.model.Friendship" />
 		<mapping class="com.lodenrogue.oyesocio.model.Post" />
 		<mapping class="com.lodenrogue.oyesocio.model.Comment" />
+		<mapping class="com.lodenrogue.oyesocio.model.FriendRequest" />
 
 	</session-factory>
 </hibernate-configuration>
