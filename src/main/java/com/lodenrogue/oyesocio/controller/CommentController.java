@@ -1,6 +1,7 @@
 package com.lodenrogue.oyesocio.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +43,7 @@ public class CommentController {
 		Comment comment = new Comment();
 		comment.setUserId(userId);
 		comment.setPostId(postId);
+		comment.setTimeCreated(Calendar.getInstance());
 		comment.setContent(content);
 		return new CommentFacade().create(comment);
 	}
