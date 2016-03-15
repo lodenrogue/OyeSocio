@@ -1,6 +1,6 @@
 package com.lodenrogue.oyesocio;
 
-public class JsonResponse {
+public class TypeResponse {
 	private String type;
 	private Object data;
 

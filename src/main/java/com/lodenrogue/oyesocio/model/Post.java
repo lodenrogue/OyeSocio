@@ -22,7 +22,7 @@ public class Post {
 	private String content;
 
 	@Transient
-	private List<Long> comments;
+	private List<Comment> comments;
 
 	@Column(name = "time_created")
 	private Calendar timeCreated;
@@ -54,11 +54,11 @@ public class Post {
 		this.content = content;
 	}
 
-	public List<Long> getComments() {
+	public List<Comment> getComments() {
 		return comments;
 	}
 
-	public void setComments(List<Long> comments) {
+	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
 

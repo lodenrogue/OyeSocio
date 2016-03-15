@@ -7,43 +7,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lodenrogue.oyesocio.JsonResponse;
+import com.lodenrogue.oyesocio.TypeResponse;
 import com.lodenrogue.oyesocio.model.User;
 import com.lodenrogue.oyesocio.service.UserFacade;
+import com.lodenrogue.oyesocio.view.HtmlViewBuilder;
 
 @RestController
 public class ServiceController {
 
-	// @RequestMapping(path = "/api/services", method = RequestMethod.GET)
-	// public String processRequest(@RequestParam String email, @RequestParam
-	// String subject, @RequestParam String body) {
-	// System.out.println("Subject is " + subject);
-	// return parseCommands(subject).get(0);
-	// }
-	//
-	// private List<String> parseCommands(String subject) {
-	// String[] split = subject.split(" ");
-	// List<String> commands = new ArrayList<String>();
-	//
-	// for (int i = 1; i < split.length; i++) {
-	// commands.add(split[i]);
-	// }
-	// return commands;
-	// }
-
-	@RequestMapping(path = "/api/main", method = RequestMethod.GET)
-	public JsonResponse processMain(@RequestParam String email) throws IOException {
-		User user = new UserFacade().findByEmail(email);
+	@RequestMapping(path = "/api/signin", method = RequestMethod.GET)
+	public TypeResponse signin(@RequestParam String email) throws IOException {
+		User user = new UserController().getUser(email);
 		String type = "";
+		String data = "";
 		if (user == null) {
 			type = "SIGNUP";
 		}
 		else {
+			data = new HtmlViewBuilder("schemas").buildProfile(user);
 			type = "PROFILE";
 		}
-		JsonResponse response = new JsonResponse();
+
+		TypeResponse response = new TypeResponse();
 		response.setType(type);
-		response.setData("");
+		response.setData(data);
 		return response;
 	}
+
+	@RequestMapping(path = "/api/register", method = RequestMethod.POST)
+	public String register(@RequestParam String email, @RequestParam String firstName, @RequestParam String lastName) {
+		User user = new UserFacade().findByEmail(email);
+		if (user == null) {
+			user = new User();
+			user.setEmail(email);
+			user.setFirstName(firstName);
+			user.setLastName(lastName);
+			user = new UserFacade().create(user);
+		}
+		return new HtmlViewBuilder("schemas").buildProfile(user);
+	}
+
 }

@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lodenrogue.oyesocio.model.Friendship;
-import com.lodenrogue.oyesocio.model.Post;
 import com.lodenrogue.oyesocio.model.User;
 import com.lodenrogue.oyesocio.service.FriendshipFacade;
-import com.lodenrogue.oyesocio.service.PostFacade;
 import com.lodenrogue.oyesocio.service.UserFacade;
 
 @RestController
@@ -31,9 +29,10 @@ public class UserController {
 		try {
 			long id = Long.valueOf(emailOrId);
 			user = new UserFacade().find(id);
+
 			if (user != null) {
 				user.setFriends(getFriendIds(id));
-				user.setPosts(getPosts(id));
+				user.setPosts(new PostController().getPosts(id));
 				return user;
 			}
 		}
@@ -41,11 +40,10 @@ public class UserController {
 			user = new UserFacade().findByEmail(emailOrId);
 			if (user != null) {
 				user.setFriends(getFriendIds(user.getId()));
-				user.setPosts(getPosts(user.getId()));
+				user.setPosts(new PostController().getPosts(user.getId()));
 				return user;
 			}
 		}
-
 		return new User();
 	}
 
@@ -90,16 +88,6 @@ public class UserController {
 			friendIds.add(f.getFriendId());
 		}
 		return friendIds;
-	}
-
-	private List<Long> getPosts(long userId) {
-		List<Post> posts = new PostFacade().findAllByUser(userId);
-		List<Long> postIds = new ArrayList<Long>();
-
-		for (Post p : posts) {
-			postIds.add(p.getId());
-		}
-		return postIds;
 	}
 
 }

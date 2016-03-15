@@ -26,8 +26,9 @@ public class User {
 
 	@Transient
 	private List<Long> friends;
+
 	@Transient
-	private List<Long> posts;
+	private List<Post> posts;
 
 	/**
 	 * Default constructor
@@ -75,11 +76,11 @@ public class User {
 		this.friends = friends;
 	}
 
-	public List<Long> getPosts() {
+	public List<Post> getPosts() {
 		return posts;
 	}
 
-	public void setPosts(List<Long> posts) {
+	public void setPosts(List<Post> posts) {
 		this.posts = posts;
 	}
 

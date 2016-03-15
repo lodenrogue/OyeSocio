@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lodenrogue.oyesocio.model.Comment;
 import com.lodenrogue.oyesocio.model.Post;
-import com.lodenrogue.oyesocio.service.CommentFacade;
 import com.lodenrogue.oyesocio.service.PostFacade;
 
 @RestController
@@ -22,7 +20,7 @@ public class PostController {
 	public Post getPost(@PathVariable long id) {
 		Post post = new PostFacade().find(id);
 		if (post != null) {
-			post.setComments(getComments(post.getId()));
+			post.setComments(new CommentController().getComments(id));
 			return post;
 		}
 		else {
@@ -35,7 +33,7 @@ public class PostController {
 		List<Post> posts = new PostFacade().findAllByUser(userId);
 		if (posts != null) {
 			for (Post p : posts) {
-				p.setComments(getComments(p.getId()));
+				p.setComments(new CommentController().getComments(p.getId()));
 			}
 			return posts;
 		}
@@ -51,16 +49,6 @@ public class PostController {
 		post.setContent(content);
 		post.setTimeCreated(Calendar.getInstance());
 		return new PostFacade().create(post);
-	}
-
-	private List<Long> getComments(long postId) {
-		List<Comment> comments = new CommentFacade().findAllByPost(postId);
-		List<Long> commentIds = new ArrayList<Long>();
-
-		for (Comment c : comments) {
-			commentIds.add(c.getId());
-		}
-		return commentIds;
 	}
 
 }
