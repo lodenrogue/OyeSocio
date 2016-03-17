@@ -44,7 +44,7 @@ public class UserController {
 				return user;
 			}
 		}
-		return new User();
+		return null;
 	}
 
 	/**
@@ -73,11 +73,9 @@ public class UserController {
 			user.setLastName(lastName);
 			user.setEmail(email);
 			user = new UserFacade().create(user);
-			return user;
+
 		}
-		else {
-			return new User();
-		}
+		return user;
 	}
 
 	private List<Long> getFriendIds(long userId) {

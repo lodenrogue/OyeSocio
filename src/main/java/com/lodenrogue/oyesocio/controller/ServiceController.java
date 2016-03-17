@@ -17,17 +17,15 @@ public class ServiceController {
 
 	@RequestMapping(path = "/api/signin", method = RequestMethod.GET)
 	public TypeResponse signin(@RequestParam String email) throws IOException {
-		User user = new UserController().getUser(email);
 		String type = "";
 		String data = "";
+		User user = new UserController().getUser(email);
 		if (user == null) {
 			type = "SIGNUP";
 		}
 		else {
-			data = new HtmlViewBuilder("schemas").buildProfile(user);
 			type = "PROFILE";
 		}
-
 		TypeResponse response = new TypeResponse();
 		response.setType(type);
 		response.setData(data);
@@ -35,7 +33,7 @@ public class ServiceController {
 	}
 
 	@RequestMapping(path = "/api/register", method = RequestMethod.POST)
-	public String register(@RequestParam String email, @RequestParam String firstName, @RequestParam String lastName) {
+	public User register(@RequestParam String email, @RequestParam String firstName, @RequestParam String lastName) {
 		User user = new UserFacade().findByEmail(email);
 		if (user == null) {
 			user = new User();
@@ -44,7 +42,18 @@ public class ServiceController {
 			user.setLastName(lastName);
 			user = new UserFacade().create(user);
 		}
-		return new HtmlViewBuilder("schemas").buildProfile(user);
+		return user;
+	}
+
+	@RequestMapping(path = "api/profile", method = RequestMethod.GET)
+	public String getProfile(@RequestParam String email) {
+		User user = new UserController().getUser(email);
+		if (user != null) {
+			return new HtmlViewBuilder("schemas").buildProfile(user);
+		}
+		else {
+			return "ERROR: NO USER FOUND";
+		}
 	}
 
 }
