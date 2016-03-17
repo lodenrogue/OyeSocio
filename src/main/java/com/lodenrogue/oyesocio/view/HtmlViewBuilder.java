@@ -1,6 +1,7 @@
 package com.lodenrogue.oyesocio.view;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import com.lodenrogue.oyesocio.Schema;
 import com.lodenrogue.oyesocio.controller.UserController;
@@ -24,6 +25,7 @@ public class HtmlViewBuilder implements ViewBuilder {
 			profileSchema.setAttribute("[LAST_NAME]", user.getLastName());
 
 			String posts = "";
+			Collections.reverse(user.getPosts());
 			for (Post p : user.getPosts()) {
 				Schema postSchema = new Schema(schemaDirectory + "/post.schema");
 				postSchema.setAttribute("[FIRST_NAME]", user.getFirstName());

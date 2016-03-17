@@ -1,0 +1,86 @@
+.profile-portrait {
+	width: 5em;
+	height: 5em;
+	background: gray;
+	margin-bottom: 1em;
+}
+
+.profile-name {
+	font-size: 1.5em;
+}
+
+.post {
+	background: #f3f8fa;
+	margin-bottom: 0.5em;
+	padding: 1em;
+	padding-bottom: 0.5em;
+	border-radius: 0.6em;
+	border-left: thick solid #4ea0cb;
+	font-family: Arial;
+	font-size: 0.9em;
+}
+
+.post-author {
+	float: right;
+	font-size: 1.5em;
+}
+
+.post-author-portrait {
+	width: 5em;
+	height: 5em;
+	background: gray;
+	margin-bottom: 1em;
+}
+
+hr {
+	margin-top: 1em;
+	border: solid 1px;
+	border-color: #c9c9c9;
+	color: #c9c9c9;
+	background-color: #c9c9c9;
+}
+
+.post-bottom, .comment-bottom {
+	padding-bottom: 0.5em;
+	text-align: right;
+}
+
+.post-bottom>a, .comment-bottom>a {
+	text-decoration: none;
+}
+
+.plus-one {
+	padding-right: 1em;
+	display: inline;
+	color: green;
+	font-size: 1.2em;
+}
+
+.reply {
+	padding-right: 1em;
+	display: inline;
+	font-size: 1.2em;
+}
+
+.comment {
+	background: #f4f4f4;
+	padding: 1em;
+	margin-left: 2em;
+	margin-bottom: 0.5em;
+	border-radius: 0.6em;
+	border-left: solid darkgray;
+	font-family: Arial;
+	font-size: 0.9em;
+}
+
+.comment-author {
+	float: right;
+	font-size: 1.2em;
+}
+
+.comment-author-portrait {
+	width: 3em;
+	height: 3em;
+	background: gray;
+	margin-bottom: 1em;
+}
