@@ -34,13 +34,9 @@ public class ServiceController {
 
 	@RequestMapping(path = "/api/register", method = RequestMethod.POST)
 	public User register(@RequestParam String email, @RequestParam String firstName, @RequestParam String lastName) {
-		User user = new UserFacade().findByEmail(email);
+		User user = new UserController().getUser(email);
 		if (user == null) {
-			user = new User();
-			user.setEmail(email);
-			user.setFirstName(firstName);
-			user.setLastName(lastName);
-			user = new UserFacade().create(user);
+			user = new UserController().createUser(firstName, lastName, email);
 		}
 		return user;
 	}
