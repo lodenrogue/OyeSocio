@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lodenrogue.oyesocio.TypeResponse;
 import com.lodenrogue.oyesocio.model.User;
-import com.lodenrogue.oyesocio.service.UserFacade;
 import com.lodenrogue.oyesocio.view.HtmlViewBuilder;
 
 @RestController
@@ -49,6 +48,17 @@ public class ServiceController {
 		}
 		else {
 			return "ERROR: NO USER FOUND";
+		}
+	}
+
+	@RequestMapping(path = "api/publish", method = RequestMethod.POST)
+	public String publishPost(@RequestParam String userEmail, @RequestParam String content) {
+		User user = new UserController().getUser(userEmail);
+		if (user == null) {
+			return "ERROR: NO USER FOUND";
+		}
+		else {
+			return new PostController().createPost(user.getId(), content).getContent();
 		}
 	}
 
