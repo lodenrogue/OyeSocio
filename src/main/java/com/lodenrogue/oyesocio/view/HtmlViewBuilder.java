@@ -30,6 +30,7 @@ public class HtmlViewBuilder implements ViewBuilder {
 				Schema postSchema = new Schema(schemaDirectory + "/post.schema");
 				postSchema.setAttribute("[FIRST_NAME]", user.getFirstName());
 				postSchema.setAttribute("[LAST_NAME]", user.getLastName());
+				postSchema.setAttribute("[POST_ID]", String.valueOf(p.getId()));
 				postSchema.setAttribute("[TEXT]", p.getContent());
 
 				String comments = "";

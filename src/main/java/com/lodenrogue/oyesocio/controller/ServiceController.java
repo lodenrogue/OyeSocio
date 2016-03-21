@@ -2,12 +2,14 @@ package com.lodenrogue.oyesocio.controller;
 
 import java.io.IOException;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lodenrogue.oyesocio.TypeResponse;
+import com.lodenrogue.oyesocio.model.Post;
 import com.lodenrogue.oyesocio.model.User;
 import com.lodenrogue.oyesocio.view.HtmlViewBuilder;
 
@@ -40,9 +42,32 @@ public class ServiceController {
 		return user;
 	}
 
+	/**
+	 * Get profile by user email
+	 * 
+	 * @param email
+	 * @return
+	 */
 	@RequestMapping(path = "api/profile", method = RequestMethod.GET)
 	public String getProfile(@RequestParam String email) {
 		User user = new UserController().getUser(email);
+		if (user != null) {
+			return new HtmlViewBuilder("schemas").buildProfile(user);
+		}
+		else {
+			return "ERROR: NO USER FOUND";
+		}
+	}
+
+	/**
+	 * Get profile by user id
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(path = "api/profile/{id}", method = RequestMethod.GET)
+	public String getProfile(@PathVariable long id) {
+		User user = new UserController().getUser(String.valueOf(id));
 		if (user != null) {
 			return new HtmlViewBuilder("schemas").buildProfile(user);
 		}
@@ -59,6 +84,24 @@ public class ServiceController {
 		}
 		else {
 			return new PostController().createPost(user.getId(), content).getContent();
+		}
+	}
+
+	@RequestMapping(path = "api/reply", method = RequestMethod.POST)
+	public Object reply(@RequestParam long postId, @RequestParam String userEmail, @RequestParam String content) {
+		User user = new UserController().getUser(userEmail);
+		if (user == null) {
+			return "ERROR: NO USER FOUND";
+		}
+		else {
+			Post post = new PostController().getPost(postId);
+			if (post == null) {
+				return "ERROR: NO POST FOUND";
+			}
+			else {
+				new CommentController().createComment(user.getId(), postId, content).getContent();
+				return post;
+			}
 		}
 	}
 

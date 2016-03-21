@@ -1,6 +1,5 @@
 package com.lodenrogue.oyesocio.controller;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class PostController {
 			return post;
 		}
 		else {
-			return new Post();
+			return null;
 		}
 	}
 
@@ -38,7 +37,7 @@ public class PostController {
 			return posts;
 		}
 		else {
-			return new ArrayList<Post>();
+			return null;
 		}
 	}
 

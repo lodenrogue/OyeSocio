@@ -6,8 +6,8 @@
 	<div style="padding-bottom: 0.5em; text-align: right;">
 		<a href="#" style="text-decoration: none;">
 			<p style="padding-right: 1em; display: inline; color: green; font-size: 1.2em;">+1</p>
-		</a> <a href="#" style="text-decoration: none;">
-			<p style="padding-right: 1em; display: inline; font-size: 1.2em;">Reply</p>
+		</a> <a href="mailto:apretaste@gmail.com?Subject=oyesocio%20responder%20[POST_ID]%20REPUESTA&Body=Remplace%20REPUESTA%20con%20su%20repuesta." style="text-decoration: none;">
+			<p style="padding-right: 1em; display: inline; font-size: 1.2em;">Responder</p>
 		</a>
 	</div>
 </div>
