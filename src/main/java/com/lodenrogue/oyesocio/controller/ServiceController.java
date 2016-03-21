@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lodenrogue.oyesocio.TypeResponse;
 import com.lodenrogue.oyesocio.model.Post;
 import com.lodenrogue.oyesocio.model.User;
 import com.lodenrogue.oyesocio.view.HtmlViewBuilder;
@@ -17,20 +16,14 @@ import com.lodenrogue.oyesocio.view.HtmlViewBuilder;
 public class ServiceController {
 
 	@RequestMapping(path = "/api/signin", method = RequestMethod.GET)
-	public TypeResponse signin(@RequestParam String email) throws IOException {
-		String type = "";
-		String data = "";
+	public String signin(@RequestParam String email) throws IOException {
 		User user = new UserController().getUser(email);
 		if (user == null) {
-			type = "SIGNUP";
+			return "SIGNUP";
 		}
 		else {
-			type = "PROFILE";
+			return "PROFILE";
 		}
-		TypeResponse response = new TypeResponse();
-		response.setType(type);
-		response.setData(data);
-		return response;
 	}
 
 	@RequestMapping(path = "/api/register", method = RequestMethod.POST)
@@ -104,5 +97,4 @@ public class ServiceController {
 			}
 		}
 	}
-
 }

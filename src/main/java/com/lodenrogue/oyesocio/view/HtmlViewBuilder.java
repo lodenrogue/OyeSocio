@@ -28,6 +28,7 @@ public class HtmlViewBuilder implements ViewBuilder {
 			Collections.reverse(user.getPosts());
 			for (Post p : user.getPosts()) {
 				Schema postSchema = new Schema(schemaDirectory + "/post.schema");
+				postSchema.setAttribute("[USER_ID]", String.valueOf(user.getId()));
 				postSchema.setAttribute("[FIRST_NAME]", user.getFirstName());
 				postSchema.setAttribute("[LAST_NAME]", user.getLastName());
 				postSchema.setAttribute("[POST_ID]", String.valueOf(p.getId()));
@@ -37,6 +38,7 @@ public class HtmlViewBuilder implements ViewBuilder {
 				for (Comment c : p.getComments()) {
 					Schema commentSchema = new Schema(schemaDirectory + "/comment.schema");
 					User commentUser = new UserController().getUser(String.valueOf(c.getUserId()));
+					commentSchema.setAttribute("[USER_ID]", String.valueOf(commentUser.getId()));
 					commentSchema.setAttribute("[FIRST_NAME]", commentUser.getFirstName());
 					commentSchema.setAttribute("[LAST_NAME]", commentUser.getLastName());
 					commentSchema.setAttribute("[TEXT]", c.getContent());

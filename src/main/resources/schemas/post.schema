@@ -1,6 +1,8 @@
 <div style="background: #f3f8fa; margin-bottom: 0.5em; padding: 1em; padding-bottom: 0.5em; border-radius: 0.6em; border-left: thick solid #4ea0cb; font-family: Arial; font-size: 0.9em;">
-	<p style="float: right; font-size: 1.5em;">[FIRST_NAME] [LAST_NAME]</p>
-	<div style="width: 5em; height: 5em; background: gray; margin-bottom: 1em;"></div>
+	<a href="mailto:apretaste@gmail.com?Subject=oyesocio%20perfil%20[USER_ID]&Body=Mande%20este%20mensaje%20tal%20como%20esta%20para%20ver%20el%20perfil%20de%20[FIRST_NAME]%20[LAST_NAME]" style="text-decoration: none; color: black;">
+		<p style="float: right; font-size: 1.5em;">[FIRST_NAME] [LAST_NAME]</p>
+		<div style="width: 5em; height: 5em; background: gray; margin-bottom: 1em;"></div>
+	</a>
 	<p>[TEXT]</p>
 	<hr style="margin-top: 1em; border: solid 1px; border-color: #c9c9c9; color: #c9c9c9; background-color: #c9c9c9;">
 	<div style="padding-bottom: 0.5em; text-align: right;">
