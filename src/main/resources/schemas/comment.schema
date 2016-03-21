@@ -4,7 +4,7 @@
 	<p>[TEXT]</p>
 	<hr style="margin-top: 1em; border: solid 1px; border-color: #c9c9c9; color: #c9c9c9; background-color: #c9c9c9;">
 	<div style="padding-bottom: 0.5em; text-align: right;">
-		<a href="#">
+		<a href="#" style="text-decoration:none; color: green;">
 			<p class="plus-one">+1</p>
 		</a>
 	</div>

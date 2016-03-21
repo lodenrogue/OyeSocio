@@ -49,7 +49,11 @@ hr {
 	text-align: right;
 }
 
-.post-bottom>a, .comment-bottom>a {
+.post-bottom>a{
+	text-decoration: none;
+}
+
+.comment-bottom>a {
 	text-decoration: none;
 }
 
