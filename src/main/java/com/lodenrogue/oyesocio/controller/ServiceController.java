@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lodenrogue.oyesocio.model.Comment;
 import com.lodenrogue.oyesocio.model.Post;
 import com.lodenrogue.oyesocio.model.User;
 import com.lodenrogue.oyesocio.view.HtmlViewBuilder;
@@ -42,13 +43,20 @@ public class ServiceController {
 	 * @return
 	 */
 	@RequestMapping(path = "api/profile", method = RequestMethod.GET)
-	public String getProfile(@RequestParam String email) {
-		User user = new UserController().getUser(email);
-		if (user != null) {
-			return new HtmlViewBuilder("schemas").buildProfile(user);
+	public String getProfile(@RequestParam String viewerEmail, @RequestParam String targetEmail) {
+		User viewer = new UserController().getUser(viewerEmail);
+		User target = new UserController().getUser(targetEmail);
+
+		if (viewer != null && target != null) {
+			return new HtmlViewBuilder("schemas").buildProfile(viewer, target);
 		}
 		else {
-			return "ERROR: NO USER FOUND";
+			if (viewer == null) {
+				return "ERROR: NO USER FOUND WITH EMAIL " + viewerEmail;
+			}
+			else {
+				return "ERROR: NO USER FOUND WITH EMAIL " + targetEmail;
+			}
 		}
 	}
 
@@ -59,29 +67,60 @@ public class ServiceController {
 	 * @return
 	 */
 	@RequestMapping(path = "api/profile/{id}", method = RequestMethod.GET)
-	public String getProfile(@PathVariable long id) {
-		User user = new UserController().getUser(String.valueOf(id));
-		if (user != null) {
-			return new HtmlViewBuilder("schemas").buildProfile(user);
+	public String getProfile(@RequestParam String viewerEmail, @PathVariable long id) {
+		User viewer = new UserController().getUser(viewerEmail);
+		User target = new UserController().getUser(String.valueOf(id));
+
+		if (viewer != null && target != null) {
+			return new HtmlViewBuilder("schemas").buildProfile(viewer, target);
 		}
 		else {
-			return "ERROR: NO USER FOUND";
+			if (viewer == null) {
+				return "ERROR: NO USER FOUND WITH EMAIL " + viewerEmail;
+			}
+			else {
+				return "ERROR: NO USER FOUND WITH ID " + id;
+			}
 		}
 	}
 
 	@RequestMapping(path = "api/publish", method = RequestMethod.POST)
-	public String publishPost(@RequestParam String userEmail, @RequestParam String content) {
+	public Object publishPost(@RequestParam String userEmail, @RequestParam String content) {
 		User user = new UserController().getUser(userEmail);
 		if (user == null) {
 			return "ERROR: NO USER FOUND";
 		}
 		else {
-			return new PostController().createPost(user.getId(), content).getContent();
+			Post post = new PostController().createPost(user.getId(), content);
+			return post;
+		}
+	}
+
+	@RequestMapping(path = "api/delete-post/{id}", method = RequestMethod.DELETE)
+	public String deletePost(@RequestParam String userEmail, @PathVariable long id) {
+		User user = new UserController().getUser(userEmail);
+		if (user != null) {
+			Post post = new PostController().getPost(id);
+			if (post != null) {
+				if (post.getUserId() == user.getId()) {
+					new PostController().deletePost(post.getId());
+					return "DONE";
+				}
+				else {
+					return "ERROR: USER IS NOT OWNER";
+				}
+			}
+			else {
+				return "ERROR: POST NOT FOUND";
+			}
+		}
+		else {
+			return "ERROR: NO USER FOUND";
 		}
 	}
 
 	@RequestMapping(path = "api/reply", method = RequestMethod.POST)
-	public Object reply(@RequestParam long postId, @RequestParam String userEmail, @RequestParam String content) {
+	public Object publishComment(@RequestParam long postId, @RequestParam String userEmail, @RequestParam String content) {
 		User user = new UserController().getUser(userEmail);
 		if (user == null) {
 			return "ERROR: NO USER FOUND";
@@ -95,6 +134,29 @@ public class ServiceController {
 				new CommentController().createComment(user.getId(), postId, content).getContent();
 				return post;
 			}
+		}
+	}
+
+	@RequestMapping(path = "api/delete-comment/{id}", method = RequestMethod.DELETE)
+	public String deleteComment(@RequestParam String userEmail, @PathVariable long id) {
+		User user = new UserController().getUser(userEmail);
+		if (user != null) {
+			Comment comment = new CommentController().getComment(id);
+			if (comment != null) {
+				if (comment.getUserId() == user.getId()) {
+					new CommentController().deleteComment(comment.getId());
+					return "DONE";
+				}
+				else {
+					return "ERROR: USER IS NOT OWNER";
+				}
+			}
+			else {
+				return "ERROR: COMMENT NOT FOUND";
+			}
+		}
+		else {
+			return "ERROR: NO USER FOUND";
 		}
 	}
 }

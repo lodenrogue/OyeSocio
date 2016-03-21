@@ -4,6 +4,6 @@ import com.lodenrogue.oyesocio.model.User;
 
 public interface ViewBuilder {
 
-	public String buildProfile(User user);
+	public String buildProfile(User viewer, User target);
 
 }

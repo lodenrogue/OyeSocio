@@ -1,6 +1,5 @@
 package com.lodenrogue.oyesocio.controller;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -23,7 +22,7 @@ public class CommentController {
 			return comment;
 		}
 		else {
-			return new Comment();
+			return null;
 		}
 	}
 
@@ -34,7 +33,7 @@ public class CommentController {
 			return comments;
 		}
 		else {
-			return new ArrayList<Comment>();
+			return null;
 		}
 	}
 
@@ -46,6 +45,11 @@ public class CommentController {
 		comment.setTimeCreated(Calendar.getInstance());
 		comment.setContent(content);
 		return new CommentFacade().create(comment);
+	}
+
+	@RequestMapping(path = "api/comments/{id}", method = RequestMethod.DELETE)
+	public void deleteComment(@PathVariable long id) {
+		new CommentFacade().delete(id);
 	}
 
 }
