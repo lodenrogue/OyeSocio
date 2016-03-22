@@ -103,6 +103,12 @@ public class ServiceController {
 			Post post = new PostController().getPost(id);
 			if (post != null) {
 				if (post.getUserId() == user.getId()) {
+					// Delete comments
+					for (Comment c : post.getComments()) {
+						new CommentController().deleteComment(c.getId());
+					}
+
+					// Delete post
 					new PostController().deletePost(post.getId());
 					return "DONE";
 				}
