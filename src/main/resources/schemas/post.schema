@@ -7,9 +7,10 @@
 	<p>[TEXT]</p>
 	<hr style="margin-top: 1em; border: solid 1px; border-color: #c9c9c9; color: #c9c9c9; background-color: #c9c9c9;">
 	<div style="padding-bottom: 0.5em; text-align: right;">
-		<a href="#" style="text-decoration: none;">
-			<p style="padding-right: 1em; display: inline; color: green; font-size: 1.2em;">+1</p>
-		</a> <a href="mailto:apretaste@gmail.com?Subject=oyesocio%20responder%20[POST_ID]%20REPUESTA&Body=Remplace%20REPUESTA%20con%20su%20repuesta." style="text-decoration: none;">
+		<a href="mailto:apretaste@gmail.com?Subject=oyesocio%20gustar_publicacion%20[POST_ID]&Body=Mande%20este%20mensaje%20tal%20como%20esta%20para%20gustar%20la%20publicacion%20de%20[FIRST_NAME]%20[LAST_NAME]" style="text-decoration: none;">
+			<p style="padding-right: 1em; display: inline; color: green; font-size: 1.2em;">+[LIKES]</p>
+		</a> 
+		<a href="mailto:apretaste@gmail.com?Subject=oyesocio%20responder%20[POST_ID]%20REPUESTA&Body=Remplace%20REPUESTA%20con%20su%20repuesta." style="text-decoration: none;">
 			<p style="padding-right: 1em; display: inline; font-size: 1.2em;">Responder</p>
 		</a>
 	</div>

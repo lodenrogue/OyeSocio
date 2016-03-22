@@ -20,6 +20,7 @@ public class PostController {
 		Post post = new PostFacade().find(id);
 		if (post != null) {
 			post.setComments(new CommentController().getComments(id));
+			post.setLikes(new LikeController().getPostLikes(id));
 			return post;
 		}
 		else {
@@ -33,6 +34,7 @@ public class PostController {
 		if (posts != null) {
 			for (Post p : posts) {
 				p.setComments(new CommentController().getComments(p.getId()));
+				p.setLikes(new LikeController().getPostLikes(p.getId()));
 			}
 			return posts;
 		}

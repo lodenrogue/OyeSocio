@@ -24,6 +24,9 @@ public class Post {
 	@Transient
 	private List<Comment> comments;
 
+	@Transient
+	private List<Like> likes;
+
 	@Column(name = "time_created")
 	private Calendar timeCreated;
 
@@ -60,6 +63,14 @@ public class Post {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public List<Like> getLikes() {
+		return likes;
+	}
+
+	public void setLikes(List<Like> likes) {
+		this.likes = likes;
 	}
 
 	public Calendar getTimeCreated() {

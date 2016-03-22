@@ -48,6 +48,7 @@ public class HtmlViewBuilder implements ViewBuilder {
 				postSchema.setAttribute("[USER_ID]", String.valueOf(target.getId()));
 				postSchema.setAttribute("[FIRST_NAME]", target.getFirstName());
 				postSchema.setAttribute("[LAST_NAME]", target.getLastName());
+				postSchema.setAttribute("[LIKES]", String.valueOf(p.getLikes().size() + 1));
 				postSchema.setAttribute("[POST_ID]", String.valueOf(p.getId()));
 				postSchema.setAttribute("[TEXT]", p.getContent());
 
@@ -66,6 +67,7 @@ public class HtmlViewBuilder implements ViewBuilder {
 					commentSchema.setAttribute("[FIRST_NAME]", commentUser.getFirstName());
 					commentSchema.setAttribute("[LAST_NAME]", commentUser.getLastName());
 					commentSchema.setAttribute("[TEXT]", c.getContent());
+					commentSchema.setAttribute("[LIKES]", String.valueOf(c.getLikes().size() + 1));
 					comments += "\n" + commentSchema.build();
 				}
 

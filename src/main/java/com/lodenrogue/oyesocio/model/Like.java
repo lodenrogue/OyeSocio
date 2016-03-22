@@ -1,18 +1,14 @@
 package com.lodenrogue.oyesocio.model;
 
-import java.util.Calendar;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
-@Table(name = "comments")
-public class Comment {
+@Table(name = "likes")
+public class Like {
 	@Id
 	@GeneratedValue
 	private long id;
@@ -20,18 +16,13 @@ public class Comment {
 	@Column(name = "post_id")
 	private long postId;
 
-	@Transient
-	private List<Like> likes;
+	@Column(name = "comment_id")
+	private long commentId;
 
 	@Column(name = "user_id")
 	private long userId;
-	
-	private String content;
 
-	@Column(name = "time_created")
-	private Calendar timeCreated;
-
-	public Comment() {
+	public Like() {
 
 	}
 
@@ -51,12 +42,12 @@ public class Comment {
 		this.postId = postId;
 	}
 
-	public List<Like> getLikes() {
-		return likes;
+	public long getCommentId() {
+		return commentId;
 	}
 
-	public void setLikes(List<Like> likes) {
-		this.likes = likes;
+	public void setCommentId(long commentId) {
+		this.commentId = commentId;
 	}
 
 	public long getUserId() {
@@ -65,22 +56,6 @@ public class Comment {
 
 	public void setUserId(long userId) {
 		this.userId = userId;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Calendar getTimeCreated() {
-		return timeCreated;
-	}
-
-	public void setTimeCreated(Calendar timeCreated) {
-		this.timeCreated = timeCreated;
 	}
 
 }

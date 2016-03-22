@@ -19,6 +19,7 @@ public class CommentController {
 	public Comment getComment(@PathVariable long id) {
 		Comment comment = new CommentFacade().find(id);
 		if (comment != null) {
+			comment.setLikes(new LikeController().getCommentLikes(id));
 			return comment;
 		}
 		else {
@@ -30,11 +31,11 @@ public class CommentController {
 	public List<Comment> getComments(@PathVariable long postId) {
 		List<Comment> comments = new CommentFacade().findAllByPost(postId);
 		if (comments != null) {
-			return comments;
+			for (Comment c : comments) {
+				c.setLikes(new LikeController().getCommentLikes(c.getId()));
+			}
 		}
-		else {
-			return null;
-		}
+		return comments;
 	}
 
 	@RequestMapping(path = "/api/comments", method = RequestMethod.POST)
