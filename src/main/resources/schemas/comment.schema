@@ -7,7 +7,7 @@
 	<p>[TEXT]</p>
 	<hr style="margin-top: 1em; border: solid 1px; border-color: #c9c9c9; color: #c9c9c9; background-color: #c9c9c9;">
 	<div style="padding-bottom: 0.5em; text-align: right;">
-		<a href="#" style="text-decoration:none; color: green;">
+		<a href="mailto:apretaste@gmail.com?Subject=oyesocio%20gustar_repuesta%20[COMMENT_ID]&Body=Mande%20este%20mensaje%20tal%20como%20esta%20para%20gustar%20la%20repuesta%20de%20[FIRST_NAME]%20[LAST_NAME]" style="text-decoration:none; color: green;">
 			<p class="plus-one">+[LIKES]</p>
 		</a>
 	</div>

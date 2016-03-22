@@ -67,6 +67,7 @@ public class HtmlViewBuilder implements ViewBuilder {
 					commentSchema.setAttribute("[FIRST_NAME]", commentUser.getFirstName());
 					commentSchema.setAttribute("[LAST_NAME]", commentUser.getLastName());
 					commentSchema.setAttribute("[TEXT]", c.getContent());
+					commentSchema.setAttribute("[COMMENT_ID]", String.valueOf(c.getId()));
 					commentSchema.setAttribute("[LIKES]", String.valueOf(c.getLikes().size() + 1));
 					comments += "\n" + commentSchema.build();
 				}

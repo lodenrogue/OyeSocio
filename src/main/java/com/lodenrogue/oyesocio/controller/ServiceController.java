@@ -92,8 +92,7 @@ public class ServiceController {
 			return "ERROR: NO USER FOUND";
 		}
 		else {
-			Post post = new PostController().createPost(user.getId(), content);
-			return post;
+			return new PostController().createPost(user.getId(), content);
 		}
 	}
 
@@ -119,28 +118,6 @@ public class ServiceController {
 		}
 	}
 
-	@RequestMapping(path = "/service/like/comment/{commentId}", method = RequestMethod.POST)
-	public Object likeComment(@PathVariable long commentId, @RequestParam String userEmail) {
-		User user = new UserController().getUser(userEmail);
-		if (user != null) {
-			Comment comment = new CommentController().getComment(commentId);
-			if (comment != null) {
-				for (Like l : comment.getLikes()) {
-					if (l.getUserId() == user.getId()) {
-						return "ERROR: USER ALREADY LIKED THIS";
-					}
-				}
-				return new LikeController().createCommentLike(commentId, user.getId());
-			}
-			else {
-				return "ERROR: COMMENT NOT FOUND";
-			}
-		}
-		else {
-			return "ERROR: NO USER FOUND";
-		}
-	}
-
 	@RequestMapping(path = "/service/delete-post/{id}", method = RequestMethod.DELETE)
 	public String deletePost(@RequestParam String userEmail, @PathVariable long id) {
 		User user = new UserController().getUser(userEmail);
@@ -148,8 +125,10 @@ public class ServiceController {
 			Post post = new PostController().getPost(id);
 			if (post != null) {
 				if (post.getUserId() == user.getId()) {
+
 					// Delete comments
 					for (Comment c : post.getComments()) {
+
 						// Delete comment likes
 						for (Like l : c.getLikes()) {
 							new LikeController().deleteLike(l.getId());
@@ -197,6 +176,28 @@ public class ServiceController {
 		}
 	}
 
+	@RequestMapping(path = "/service/like/comment/{commentId}", method = RequestMethod.POST)
+	public Object likeComment(@PathVariable long commentId, @RequestParam String userEmail) {
+		User user = new UserController().getUser(userEmail);
+		if (user != null) {
+			Comment comment = new CommentController().getComment(commentId);
+			if (comment != null) {
+				for (Like l : comment.getLikes()) {
+					if (l.getUserId() == user.getId()) {
+						return "ERROR: USER ALREADY LIKED THIS";
+					}
+				}
+				return new LikeController().createCommentLike(commentId, user.getId());
+			}
+			else {
+				return "ERROR: COMMENT NOT FOUND";
+			}
+		}
+		else {
+			return "ERROR: NO USER FOUND";
+		}
+	}
+
 	@RequestMapping(path = "/service/delete-comment/{id}", method = RequestMethod.DELETE)
 	public String deleteComment(@RequestParam String userEmail, @PathVariable long id) {
 		User user = new UserController().getUser(userEmail);
@@ -204,10 +205,12 @@ public class ServiceController {
 			Comment comment = new CommentController().getComment(id);
 			if (comment != null) {
 				if (comment.getUserId() == user.getId()) {
+
 					// Delete comment likes
 					for (Like l : comment.getLikes()) {
 						new LikeController().deleteLike(l.getId());
 					}
+
 					// Delete comment
 					new CommentController().deleteComment(comment.getId());
 					return "DONE";
