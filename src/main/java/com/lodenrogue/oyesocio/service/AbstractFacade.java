@@ -1,6 +1,7 @@
 package com.lodenrogue.oyesocio.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lodenrogue.oyesocio.persistance.EntityManager;
 
@@ -27,16 +28,12 @@ public abstract class AbstractFacade<T> {
 		entityManager.delete(id);
 	}
 
-	protected T findUnique(String query) {
-		return entityManager.getUnique(query);
+	protected T findUnique(String query, Map<String, Object> parameters) {
+		return entityManager.getUnique(query, parameters);
 	}
 
-	protected void doQuery(String query) {
-		entityManager.doQuery(query);
-	}
-
-	protected List<T> findAllFromQuery(String query) {
-		return entityManager.findAllFromQuery(query);
+	protected List<T> findAllFromQuery(String query, Map<String, Object> parameters) {
+		return entityManager.findAllFromQuery(query, parameters);
 	}
 
 }
